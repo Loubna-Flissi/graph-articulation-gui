@@ -11,18 +11,15 @@ class GraphApp:
         self.root.geometry("900x500")
         self.graph = nx.Graph()
 
-        # Interface sombre avec boutons pastel
+       
         self.root.configure(bg="#2e2e2e")
 
-        # Cadre gauche pour les boutons
         self.left_frame = tk.Frame(self.root, bg="#2e2e2e")
         self.left_frame.pack(side="left", fill="y", padx=10, pady=10)
 
-        # Cadre droit pour le graphe
         self.right_frame = tk.Frame(self.root, bg="#2e2e2e")
         self.right_frame.pack(side="right", expand=True, fill="both")
 
-        # Boutons avec couleurs pastel
         buttons = [
             ("Ajouter Nœud", self.ajouter_noeud, "#b2d8b2"),
             ("Ajouter Voisin", self.ajouter_voisin, "#b2e0f2"),
@@ -38,12 +35,10 @@ class GraphApp:
             button = tk.Button(self.left_frame, text=text, command=command, bg=color, width=25, height=2)
             button.pack(pady=5)
 
-        # Figure pour le graphe
         self.figure = Figure(figsize=(5, 5), dpi=100)
         self.canvas = FigureCanvasTkAgg(self.figure, master=self.right_frame)
         self.canvas.get_tk_widget().pack(fill="both", expand=True)
 
-        # Variables pour le calcul des points d'articulation
         self.time = 0
         self.visited = set()
         self.discovery_time = {}
@@ -118,7 +113,6 @@ class GraphApp:
                 children += 1
                 self.dfs(v)
 
-                # Mise à jour de low_time[u]
                 self.low_time[u] = min(self.low_time[u], self.low_time[v])
 
                 # Condition 1 : Si u est la racine et a plus d'un enfant
@@ -146,8 +140,6 @@ class GraphApp:
 
         return self.articulation_points
 
-
-# Lancer l'application
 root = tk.Tk()
 app = GraphApp(root)
 root.mainloop()
